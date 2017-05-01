@@ -3,5 +3,5 @@ from django.conf.urls  import url
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.repo_home, name='repo_home'),
+    url(r'^$', views.get_url, name='get_url'),
 ]
