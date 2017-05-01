@@ -15,7 +15,9 @@ class Contributor(models.Model):
     username =  models.CharField(
         max_length=100
     )
-    commit_amount = models.IntegerField()
+    commit_amount = models.CharField(
+        max_length=50
+    )
     repo = models.ForeignKey(
         Repo
     )

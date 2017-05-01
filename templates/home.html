@@ -16,7 +16,7 @@
       <form class="form-inline" method="post">
         {% csrf_token %}
         <div class="form-group">
-          <label for="input_url">URL</label>
+          <label for="input_url">Git repo URL</label>
           <input name="input_url" type="text" class="form-control" id="input_url" placeholder="insert URL">
         </div>
         <button type="submit" class="btn btn-default" value="OK">ADD</button>
@@ -29,8 +29,20 @@
   <div class="row">
     {% for repo_name in repo_names %}
       <div class="col-md-4">
-        <h1>Repo name: {{ repo_name.name }}</h1>
-        <p>{{ repo_name.owner }}</p>
+        <h2>{{ repo_name.name }}</h2>
+        <h3>by {{ repo_name.owner }}</h3>
+        <table>
+         <th>Contributors</th>
+         <th>Commits</th>
+          {% for contributor in contributors %}
+            {% if contributor.repo == repo_name.id %}
+              <tr>
+                <td><p>{{ contributor.username }}</p></td>
+                <td><p>{{ contributor.commit_amount }}</p></td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </table>
       </div>
     {% endfor %}
   </div>
