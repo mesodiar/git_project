@@ -4,16 +4,16 @@ class Repo(models.Model):
     name = models.CharField(
         max_length=200
     )
-    url = models.CharField(
-        max_length=300
+    owner = models.CharField(
+        max_length=100
     )
 
     def __str__(self):
         return self.name
 
-class User(models.Model):
+class Contributor(models.Model):
     username =  models.CharField(
-        max_length=200
+        max_length=100
     )
     commit_amount = models.IntegerField()
     repo = models.ForeignKey(

@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Repo, Contributor
+
+myModels = [Repo, Contributor]
+admin.site.register(myModels)
