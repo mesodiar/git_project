@@ -24,6 +24,15 @@
 
       <!-- <img src="{% static '' %}{{ kitten_image }}"></div> -->
     <div class="col-md-4"></div>
+    </div>
+  </div>
+  <div class="row">
+    {% for repo_name in repo_names %}
+      <div class="col-md-4">
+        <h1>Repo name: {{ repo_name.name }}</h1>
+        <p>{{ repo_name.owner }}</p>
+      </div>
+    {% endfor %}
   </div>
 </body>
 </html>
