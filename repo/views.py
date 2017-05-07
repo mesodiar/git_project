@@ -32,11 +32,36 @@ def get_url(request):
     else:
         form = URLForm()
         repo_names = Repo.objects.all()
-        contributors = Contributor.objects.values('repo', 'username', 'commit_amount')
-        print(contributors)
+        contributors = Contributor.objects.values(
+            'repo',
+            'username',
+            'commit_amount'
+            ).extra(
+                select={'commit_amount': 'CAST(commit_amount AS INTEGER) '}
+                ).order_by('-commit_amount')
         return render(request, 'templates/home.html', {
             'form': form,
             'repo_names': repo_names,
             'contributors': contributors
             }
         )
+
+
+def sync_repo(request, pk):
+    repo = Repo.objects.get(id=pk)
+    api_url = f'https://api.github.com/repos/{repo.owner}/{repo.name}/contributors'
+    data = requests.get(api_url)
+    for account in data.json():
+        username = account.get("login")
+        commits = account.get("contributions")
+
+        #update data
+        contributor, created = Contributor.objects.get_or_create(
+            username = username
+        )
+
+        contributor.commit_amount = commits
+        contributor.repo = repo
+        contributor.save()
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

@@ -5,3 +5,4 @@ class URLForm(forms.Form):
         label='input_url',
         max_length = 300
     )
+

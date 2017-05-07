@@ -22,7 +22,6 @@
               <input name="input_url" type="text" class="form-control" id="input_url" placeholder="insert URL">
             </div>
             <button type="submit" class="btn btn-primary" value="OK">ADD</button>
-            <button type="submit" class="btn btn-danger" value="OK">Sync</button>
           </form>
 
           <!-- <img src="{% static '' %}{{ kitten_image }}"></div> -->
@@ -34,6 +33,7 @@
           <div class="col-md-4">
             <h2 align="center" style="color:#9eaedd">{{ repo_name.name }}</h2>
             <h3 align="center" style="color:#9ecedd">by {{ repo_name.owner }}</h3>
+            <a href="{% url 'sync_repo' pk=repo_name.pk %}"><button type="submit" class="btn btn-danger" value="OK">Sync</button></a>
             <table class="table table-striped">
             <th>Contributors</th>
             <th>Commits</th>
